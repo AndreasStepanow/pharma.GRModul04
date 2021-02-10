@@ -1,0 +1,372 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form"
+	xmlns:libs="de.arvato.GRModul01.libs">
+
+	<f:Form id="CheckGoodsReceipt" editable="false">
+
+		<f:layout>
+			<!-- f:ColumnLayout / -->
+			<f:ResponsiveGridLayout labelSpanXL="4"
+				labelSpanL="12" labelSpanM="12" labelSpanS="12"
+				adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+				emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false" />
+		</f:layout>
+
+		<f:formContainers>
+
+
+			<f:FormContainer expandable="true">
+				<f:title>
+					<core:Title icon="sap-icon://checklist"
+						text="{i18n>GoodsReceipt.ChecksGR}"></core:Title>
+				</f:title>
+
+				<f:formElements>
+
+					<f:FormElement>
+						<f:fields>
+
+							<!--Text text="{i18n>GoodsReceipt.DlvCmrExist}" / -->
+							<!--CheckBox text="{i18n>GoodsReceipt.DlvCmrExist}" selected="{= ${ExistCmr} 
+								=== '1'}"> </CheckBox -->
+							<Panel>
+								<FlexBox justifyContent="SpaceBetween">
+									<items>
+										<Text text="{i18n>GoodsReceipt.DlvCmrExist}" />
+										<RadioButtonGroup columns="2"
+											enabled="{app>/InProcess}">
+											<buttons>
+												<RadioButton id="idRadio01"
+													text="{i18n>General.Yes}"
+													selected="{= ${ExistCmr} === '1'}" />
+												<RadioButton id="idRadio02"
+													text="{i18n>General.No}" selected="{= ${ExistCmr} === '0'}" />
+											</buttons>
+										</RadioButtonGroup>
+									</items>
+								</FlexBox>
+							</Panel>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+
+							<!--CheckBox text="{i18n>GoodsReceipt.TempPrintoutExist}" selected="{= 
+								${ExistTempPrint} === '1'}"> </CheckBox -->
+							<Panel>
+								<FlexBox justifyContent="SpaceBetween">
+									<items>
+										<Text text="{i18n>GoodsReceipt.TempPrintoutExist}" />
+										<RadioButtonGroup columns="2"
+											enabled="{app>/InProcess}">
+											<buttons>
+												<RadioButton id="idRadio03"
+													text="{i18n>General.Yes}"
+													selected="{= ${ExistTempPrint} === '1'}" />
+												<RadioButton id="idRadio04"
+													text="{i18n>General.No}"
+													selected="{= ${ExistTempPrint} === '0'}" />
+											</buttons>
+										</RadioButtonGroup>
+									</items>
+								</FlexBox>
+							</Panel>
+
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<!--CheckBox text="{i18n>GoodsReceipt.TemperatureLogger}" selected="{= 
+								${ExistTLog} === '1'}"> </CheckBox -->
+							<Panel>
+								<FlexBox justifyContent="SpaceBetween">
+									<items>
+
+										<Text text="{i18n>GoodsReceipt.TemperatureLogger}" />
+										<RadioButtonGroup columns="2"
+											enabled="{app>/InProcess}">
+											<buttons>
+												<RadioButton id="idRadio05"
+													text="{i18n>General.Yes}"
+													selected="{= ${ExistTLog} === '1'}" />
+												<RadioButton id="idRadio06"
+													text="{i18n>General.No}"
+													selected="{= ${ExistTLog} === '0'}" />
+											</buttons>
+										</RadioButtonGroup>
+									</items>
+								</FlexBox>
+
+								<FlexBox justifyContent="End" direction="Column"
+									id="idTemperatureLoggerFlexBox">
+									<items>
+									</items>
+								</FlexBox>
+							</Panel>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+
+							<!--CheckBox text="{i18n>GoodsReceipt.PlombNumberExist}" selected="{= 
+								${ExistPlomb} === '1'}"> </CheckBox -->
+							<Panel>
+								<FlexBox justifyContent="SpaceBetween">
+									<items>
+
+										<Text text="{i18n>GoodsReceipt.PlombNumberExist}" />
+										<RadioButtonGroup columns="2"
+											enabled="{app>/InProcess}">
+											<buttons>
+												<RadioButton id="idRadio07"
+													text="{i18n>General.Yes}"
+													selected="{= ${ExistPlomb} === '1'}" />
+												<RadioButton id="idRadio08"
+													text="{i18n>General.No}"
+													selected="{= ${ExistPlomb} === '0'}" />
+											</buttons>
+										</RadioButtonGroup>
+
+									</items>
+								</FlexBox>
+
+								<FlexBox justifyContent="Start" direction="Column">
+									<items>
+
+										<Text text="{detail>/ExistPlombComText} "
+											visible="{= ${detail>/ExistPlombComText}.length > 0}"></Text>
+
+										<Text renderWhitespace="true"
+											text="&#x9;&#x9;&#x9;&#x9;{ExistPlombOcom}"
+											visible="{= ${ExistPlombOcom}.length > 0}"></Text>
+
+										<!--Label design="Bold" text="{detail>/ExistPlombComText}" visible="{= 
+											${detail>/ExistPlombComText}.length > 0}"></Label> <Label design="Bold" text="{ExistPlombOcom}" 
+											visible="{= ${ExistPlombOcom}.length > 0}"></Label -->
+
+									</items>
+								</FlexBox>
+							</Panel>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+
+							<!--CheckBox text="{i18n>GoodsReceipt.ColliCountExist}" selected="{= 
+								${ExistColliCnt} === '1'}"> </CheckBox -->
+							<Panel>
+								<FlexBox justifyContent="SpaceBetween">
+									<items>
+										<Text text="{i18n>GoodsReceipt.ColliCountExist}" />
+										<RadioButtonGroup columns="2"
+											enabled="{app>/InProcess}">
+											<buttons>
+												<RadioButton id="idRadio09"
+													text="{i18n>General.Yes}"
+													selected="{= ${ExistColliCnt} === '1'}" />
+												<RadioButton id="idRadio10"
+													text="{i18n>General.No}"
+													selected="{= ${ExistColliCnt} === '0'}" />
+											</buttons>
+										</RadioButtonGroup>
+									</items>
+								</FlexBox>
+
+								<FlexBox justifyContent="Start">
+									<items>
+
+										<Text text="{ExistColliCntCom}"
+											visible="{= ${ExistColliCntCom}.length > 0}"></Text>
+
+
+										<!--Label design="Bold" text="{ExistColliCntCom}" visible="{= ${ExistColliCntCom}.length 
+											> 0}"></Label -->
+
+									</items>
+								</FlexBox>
+
+							</Panel>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<Panel>
+								<FlexBox justifyContent="SpaceBetween">
+									<items>
+
+										<Text text="{i18n>GoodsReceipt.ColliStateExist}" />
+										<RadioButtonGroup columns="2"
+											enabled="{app>/InProcess}">
+											<buttons>
+												<RadioButton id="idRadio11"
+													text="{i18n>General.Yes}"
+													selected="{= ${ExistColliStt} === '1'}" />
+												<RadioButton id="idRadio12"
+													text="{i18n>General.No}"
+													selected="{= ${ExistColliStt} === '0'}" />
+											</buttons>
+										</RadioButtonGroup>
+									</items>
+								</FlexBox>
+
+								<FlexBox justifyContent="Start" direction="Column">
+									<items>
+										<Text text="{detail>/ExistColliSttComText}"
+											visible="{= ${detail>/ExistColliSttComText}.length > 0}"></Text>
+
+										<Text renderWhitespace="true"
+											text="&#x9;&#x9;&#x9;&#x9;{ExistColliStto}"
+											visible="{= ${ExistColliStto}.length > 0}"></Text>
+										<!--Label design="Bold" text="{detail>/ExistColliSttComText}" visible="{= 
+											${detail>/ExistColliSttComText}.length > 0}"></Label> <Label design="Bold" 
+											text="{ExistColliStto}" visible="{= ${ExistColliStto}.length > 0}"></Label -->
+
+									</items>
+								</FlexBox>
+
+							</Panel>
+
+							<!--CheckBox text="{i18n>GoodsReceipt.ColliStateExist}" selected="{= 
+								${ExistColliStt} === '1'}"> </CheckBox -->
+
+						</f:fields>
+					</f:FormElement>
+
+
+					<f:FormElement>
+						<f:fields>
+							<Panel>
+								<FlexBox justifyContent="SpaceBetween">
+									<items>
+
+										<Text text="{i18n>GoodsReceipt.PalettHTExist}" />
+										<RadioButtonGroup columns="3"
+											enabled="{app>/InProcess}">
+											<buttons>
+												<RadioButton id="idRadio15"
+													text="{i18n>General.Mixed}"
+													selected="{= ${PalettHt} === '2'}" />
+												<RadioButton id="idRadio13"
+													text="{i18n>General.Yes}"
+													selected="{= ${PalettHt} === '1'}" />
+												<RadioButton id="idRadio14"
+													text="{i18n>General.No}" selected="{= ${PalettHt} === '0'}" />
+
+											</buttons>
+										</RadioButtonGroup>
+									</items>
+								</FlexBox>
+
+								<FlexBox justifyContent="Start" direction="Column">
+									<items>
+
+										<Text text="{detail>/PalettHtCom0Text}"
+											visible="{= ${detail>/PalettHtCom0Text}.length > 0}"></Text>
+
+										<Text text="{detail>/PalettHtCom1Text}"
+											visible="{= ${detail>/PalettHtCom1Text}.length > 0}"></Text>
+
+										<Text text="{detail>/PalettHtCom2Text}"
+											visible="{= ${detail>/PalettHtCom2Text}.length > 0}"></Text>
+
+										<Text text="{detail>/PalettHtCom3Text}"
+											visible="{= ${detail>/PalettHtCom3Text}.length > 0}"></Text>
+
+										<Text text="{detail>/PalettHtCom4Text}"
+											visible="{= ${detail>/PalettHtCom4Text}.length > 0}"></Text>
+									
+										<Text renderWhitespace="true" text="&#x9;&#x9;&#x9;&#x9;{PalettHtOcom}"
+												visible="{= ${PalettHtOcom}.length > 0}"></Text>
+										
+										<!--Label design="Bold" text="{detail>/PalettHtCom0Text}" visible="{= 
+											${detail>/PalettHtCom0Text}.length > 0}"></Label> <Label design="Bold" text="{detail>/PalettHtCom1Text}" 
+											visible="{= ${detail>/PalettHtCom1Text}.length > 0}"></Label> <Label design="Bold" 
+											text="{detail>/PalettHtCom2Text}" visible="{= ${detail>/PalettHtCom2Text}.length 
+											> 0}"></Label> <Label design="Bold" text="{detail>/PalettHtCom3Text}" visible="{= 
+											${detail>/PalettHtCom3Text}.length > 0}"></Label> <Label design="Bold" text="{detail>/PalettHtCom4Text}" 
+											visible="{= ${detail>/PalettHtCom4Text}.length > 0}"></Label> <Label design="Bold" 
+											text="{PalettHtOcom}" visible="{= ${PalettHtOcom}.length > 0}"></Label -->
+									</items>
+								</FlexBox>
+
+							</Panel>
+
+						</f:fields>
+					</f:FormElement>
+
+
+					<f:FormElement>
+						<f:fields>
+							<Panel>
+								<FlexBox justifyContent="Start">
+									<items>
+										<Text text="{i18n>GoodsReceipt.SignatureComment}" />
+									</items>
+								</FlexBox>
+								<FlexBox justifyContent="Start">
+									<items>
+										<Text text="{Commentar}"></Text>
+									</items>
+								</FlexBox>
+							</Panel>
+						</f:fields>
+					</f:FormElement>
+
+
+				</f:formElements>
+			</f:FormContainer>
+
+
+			<!--f:FormContainer expandable="true"> <f:title> <core:Title icon="sap-icon://checklist" 
+				text="Prüfungen (QA)"></core:Title> </f:title> <f:formElements> <f:FormElement> 
+				<f:fields> <FlexBox justifyContent="SpaceBetween"> <items> <Text text="Temperatur 
+				geprüft" /> <HBox> <Button icon="sap-icon://comment" press="onCommentButtonPress"> 
+				<customData> <core:CustomData key="Name" value="GrdocCheckedCom"></core:CustomData> 
+				</customData> </Button> <RadioButtonGroup columns="2" select="onRadioButtonGroupSelect"> 
+				<buttons> <RadioButton id="idRadio16" text="{i18n>General.Yes}" selected="{= 
+				${TempChecked} === '0'}" /> <RadioButton id="idRadio17" text="{i18n>General.No}" 
+				selected="{= ${TempChecked} === '1'}" /> </buttons> <customData> <core:CustomData 
+				key="Name" value="TempChecked"></core:CustomData> </customData> </RadioButtonGroup> 
+				</HBox> </items> </FlexBox> </f:fields> </f:FormElement> <f:FormElement> 
+				<f:fields> <FlexBox justifyContent="SpaceBetween"> <items> <Text text="Siegel 
+				geprüft" /> <HBox> <Button icon="sap-icon://comment" press="onCommentButtonPress"> 
+				<customData> <core:CustomData key="Name" value="SealCheckedCom"></core:CustomData> 
+				</customData> </Button> <RadioButtonGroup columns="2" select="onRadioButtonGroupSelect"> 
+				<buttons> <RadioButton id="idRadio18" text="{i18n>General.Yes}" selected="{= 
+				${SealChecked} === '0'}" /> <RadioButton id="idRadio19" text="{i18n>General.No}" 
+				selected="{= ${SealChecked} === '1'}" /> </buttons> <customData> <core:CustomData 
+				key="Name" value="SealChecked"></core:CustomData> </customData> </RadioButtonGroup> 
+				</HBox> </items> </FlexBox> </f:fields> </f:FormElement> <f:FormElement> 
+				<f:fields> <FlexBox justifyContent="SpaceBetween"> <items> <Text text="WE-Papiere 
+				geprüft" /> <HBox> <Button icon="sap-icon://comment" press="onCommentButtonPress"> 
+				<customData> <core:CustomData key="Name" value="TempCheckedCom"></core:CustomData> 
+				</customData> </Button> <RadioButtonGroup columns="2" select="onRadioButtonGroupSelect"> 
+				<buttons> <RadioButton id="idRadio20" text="{i18n>General.Yes}" selected="{= 
+				${GrdocChecked} === '0'}" /> <RadioButton id="idRadio21" text="{i18n>General.No}" 
+				selected="{= ${GrdocChecked} === '1'}" /> </buttons> <customData> <core:CustomData 
+				key="Name" value="GrdocChecked"></core:CustomData> </customData> </RadioButtonGroup> 
+				</HBox> </items> </FlexBox> </f:fields> </f:FormElement> </f:formElements> 
+				</f:FormContainer -->
+
+			<!--f:FormContainer expandable="true"> <f:title> <core:Title icon="sap-icon://synchronize" 
+				text="Aktivitäten"></core:Title> </f:title> <f:formElements> <f:FormElement> 
+				<f:fields> <HBox> <Button text="Freigabe"></Button> <Button text="Sperre"></Button> 
+				<Button></Button> </HBox> </f:fields> </f:FormElement> </f:formElements> 
+				</f:FormContainer -->
+
+		</f:formContainers>
+
+	</f:Form>
+
+
+
+
+</core:FragmentDefinition>
+			

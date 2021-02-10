@@ -1,0 +1,176 @@
+<mvc:View
+	controllerName="de.arvato.GRModul04.controller.Detail" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.m.semantic" xmlns:f="sap.ui.layout.form"
+	xmlns:footerbar="sap.ushell.ui.footerbar"
+	xmlns:libs="de.arvato.GRModul04.libs">
+
+	<semantic:DetailPage id="page"
+
+		navButtonPress="onNavBack" showNavButton="{device>/system/phone}"
+		title="{i18n>detailTitle} [{app>/Username}] - {path: 'app>/InProcess', formatter: '.formatter.inProcess'}" busy="{detailView>/busy}"
+		busyIndicatorDelay="{detailView>/delay}">
+
+		<semantic:content>
+			<!--ObjectHeader id="objectHeader" title="{i18n>Detail.CMRDescription} 
+				{CmrRef}" intro="{i18n>Detail.VehicleReg} {VehicleReg}" number="{i18n>Detail.Spedition} 
+				{Spedition}"> </ObjectHeader -->
+
+			<ObjectHeader id="idObjectHeader" title="{i18n>General.CmrRef}: {CmrRef}"
+				titleTextDirection="Title:" number="{i18n>Master.RoughGRNumber}: {Zgweno}"
+				intro="{path: 'State', formatter: '.formatter.formatState'}"
+				introActive="true" showTitleSelector="true"
+				titleSelectorPress="onTitleSelectorPress">
+				<!--ObjectAttribute
+					title="{i18n>Detail.NewCMRReference}" text="{app>/CmrRef}"
+					visible="{= ${app>/CmrRef} !== ''}" /-->
+				<ObjectAttribute title="{i18n>Detail.Spedition}"
+					text="{Spedition}" active="true" />
+				<ObjectAttribute visible="{app>/ContractManufacturerPermitted}"
+					title="{i18n>Detail.ContractManufacturer}" 
+					text="{path: 'ManufacturerNr', formatter: '.formatter.getManufacturerDescription'}"
+					active="true" press="onContractManufacturerPress" />
+					
+				<!--ObjectAttribute title="{i18n>Master.State}" text="{path: 'State', 
+					formatter: '.formatter.formatState'}" active="true" / -->
+			</ObjectHeader>
+
+			<!-- -->
+
+			<IconTabBar id="iconTabBar"
+				class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter id="iconTabBarFilter0"
+						icon="sap-icon://hint" tooltip="{i18n>detailIconTabBarInfo}">
+
+						<core:Fragment
+							fragmentName="de.arvato.GRModul04.fragment.Info" type="XML" />
+
+					</IconTabFilter>
+
+					<IconTabFilter id="iconTabBarFilter1"
+						icon="sap-icon://activity-items"
+						tooltip="{i18n>detailIconTabBarInfo}">
+
+						<core:Fragment
+							fragmentName="de.arvato.GRModul04.fragment.GoodsReceipt"
+							type="XML" />
+
+					</IconTabFilter>
+
+					<IconTabFilter id="iconTabBarFilter2"
+						icon="sap-icon://tree"
+						tooltip="{i18n>detailIconTabBarAttachments}">
+
+						<core:Fragment
+							fragmentName="de.arvato.GRModul04.fragment.ArticleData"
+							type="XML" />
+
+					</IconTabFilter>
+
+					<IconTabFilter id="iconTabBarFilter3"
+						visible="{app>/GoodsPostingPermitted}"
+						icon="sap-icon://overview-chart"
+						tooltip="{i18n>detailIconTabBarAttachments}">
+
+						<core:Fragment
+							fragmentName="de.arvato.GRModul04.fragment.GoodsPostingData"
+							type="XML" />
+
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+
+			<!--f:Form id="CheckGoodsReceipt" editable="true"> <f:layout> <f:ResponsiveGridLayout 
+				labelSpanXL="4" labelSpanL="12" labelSpanM="12" labelSpanS="12" adjustLabelSpan="true" 
+				emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" 
+				columnsL="1" columnsM="1" singleContainerFullSize="false" /> </f:layout> 
+				<f:formContainers> <f:FormContainer> <f:formElements> <f:FormElement> <f:fields> 
+				<CheckBox text="{i18n>GoodsReceipt.DlvCmrExist}" selected="{= ${ExistCmr} 
+				=== 'X'}"> </CheckBox> </f:fields> </f:FormElement> <f:FormElement> <f:fields> 
+				<CheckBox text="{i18n>GoodsReceipt.TempPrintoutExist}" selected="{= ${ExistTempPrint} 
+				=== 'X'}"> </CheckBox> </f:fields> </f:FormElement> <f:FormElement> <f:fields> 
+				<CheckBox text="{i18n>GoodsReceipt.TemperatureLogger}" selected="{= ${ExistTLog} 
+				=== 'X'}"> </CheckBox> </f:fields> </f:FormElement> <f:FormElement> <f:fields> 
+				<CheckBox text="{i18n>GoodsReceipt.PlombNumberExist}" selected="{= ${ExistPlomb} 
+				=== 'X'}"> </CheckBox> </f:fields> </f:FormElement> <f:FormElement> <f:fields> 
+				<CheckBox text="{i18n>GoodsReceipt.ColliCountExist}" selected="{= ${ExistColliCnt} 
+				=== 'X'}"> </CheckBox> </f:fields> </f:FormElement> <f:FormElement> <f:fields> 
+				<CheckBox text="{i18n>GoodsReceipt.ColliStateExist}" selected="{= ${ExistColliStt} 
+				=== 'X'}"> </CheckBox> </f:fields> </f:FormElement> <f:FormElement> <f:fields> 
+				<FlexBox justifyContent="SpaceBetween"> <items> <Text text="{i18n>GoodsReceipt.PalettHTExist}" 
+				/> <RadioButtonGroup columns="3" id="idPalettHTGroup"> <buttons> <RadioButton 
+				id="idRadio13" text="{i18n>General.Yes}" selected="{app>/GoodsReceipt/PalettHt/yes/selected}" 
+				/> <RadioButton id="idRadio14" text="{i18n>General.No}" selected="{app>/GoodsReceipt/PalettHt/no/selected}" 
+				/> <RadioButton id="idRadio15" text="{i18n>General.Mixed}" selected="{app>/GoodsReceipt/PalettHt/mixed/selected}" 
+				/> </buttons> </RadioButtonGroup> </items> </FlexBox> </f:fields> </f:FormElement> 
+				</f:formElements> </f:FormContainer> </f:formContainers> </f:Form -->
+
+			<!--Table id="lineItemsList" width="auto" items="{DocItemSet}" updateFinished="onListUpdateFinished" 
+				noDataText="{i18n>detailLineItemTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}" 
+				class="sapUiResponsiveMargin"> <headerToolbar> <Toolbar id="lineItemsToolbar"> 
+				<Title id="lineItemsHeader" text="{detailView>/lineItemListTitle}" /> </Toolbar> 
+				</headerToolbar> <columns> <Column> <Text text="{i18n>detailLineItemTableIDColumn}" 
+				/> </Column> <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right"> 
+				<Text text="{i18n>detailLineItemTableUnitNumberColumn}" /> </Column> <Column 
+				minScreenWidth="Tablet" demandPopin="true"> <Text text="Charge" /> </Column> 
+				<Column minScreenWidth="Tablet" demandPopin="true"> <Text text="Klassif." 
+				/> </Column> <Column minScreenWidth="Tablet" demandPopin="true"> <Text text="Haltbarkeit" 
+				/> </Column> <Column minScreenWidth="Tablet" demandPopin="true"> <Text text="Übereinst." 
+				tooltip="Serialisierungsflag gesetzt und Material serialisiert?" /> </Column> 
+				<Column minScreenWidth="Tablet" demandPopin="true"> <Text text="Buchung" 
+				tooltip="Buchung in den freien Bestand?" /> </Column> </columns> <items> 
+				<ColumnListItem> <cells> <ObjectIdentifier title="{Matnr}" text="{Maktx}" 
+				/> <ObjectNumber unit="{ path: 'Vfdat', type: 'sap.ui.model.type.Date'}" 
+				/> <Text text="{Charg}" /> <ComboBox> <core:Item key="1" text="Ja" /> <core:Item 
+				key="2" text="Nein" /> <core:Item key="3" text="N/A" /> </ComboBox> <ComboBox> 
+				<core:Item key="1" text="Ja" /> <core:Item key="2" text="Nein" /> <core:Item 
+				key="3" text="N/A" /> </ComboBox> <ComboBox> <core:Item key="1" text="Ja" 
+				/> <core:Item key="2" text="Nein" /> <core:Item key="3" text="N/A" /> </ComboBox> 
+				<ComboBox> <core:Item key="1" text="Ja" /> <core:Item key="2" text="Nein" 
+				/> <core:Item key="3" text="N/A" /> </ComboBox> </cells> </ColumnListItem> 
+				</items> </Table -->
+
+		</semantic:content>
+
+
+		<!--semantic:positiveAction> <semantic:PositiveAction text="Freigeben" 
+			press="onPositivPress" /> </semantic:positiveAction -->
+
+		<semantic:editAction>
+			<semantic:EditAction press="onEditPress"
+				visible="{app>/EditPermitted}"
+				enabled="{= ${app>/InProcess} === false}" />
+		</semantic:editAction>
+
+		<semantic:saveAction>
+			<semantic:SaveAction press="onSavePress"
+				visible="{app>/EditPermitted}" enabled="{app>/InProcess}" />
+		</semantic:saveAction>
+
+		<semantic:printAction>
+			<semantic:PrintAction press="onPrintPress" />
+		</semantic:printAction>
+
+		<!--semantic:flagAction> <semantic:FlagAction press="onFlagPress" /> </semantic:flagAction -->
+
+		<semantic:messagesIndicator>
+			<semantic:MessagesIndicator
+				press="onMessagesButtonPress" />
+		</semantic:messagesIndicator>
+
+
+		<!--semantic:favoriteAction> <semantic:FavoriteAction press="onPrintPress" 
+			/> </semantic:favoriteAction -->
+
+		<!--semantic:sendEmailAction> <semantic:SendEmailAction id="shareEmail" 
+			press="onShareEmailPress" /> </semantic:sendEmailAction -->
+
+		<!--semantic:shareInJamAction> <semantic:ShareInJamAction id="shareInJam" 
+			visible="{FLP>/isShareInJamActive}" press="onShareInJamPress" /> </semantic:shareInJamAction> 
+			<semantic:saveAsTileAction> <footerbar:AddBookmarkButton id="shareTile" title="{detailView>/saveAsTileTitle}" 
+			/> </semantic:saveAsTileAction -->
+
+	</semantic:DetailPage>
+
+</mvc:View>

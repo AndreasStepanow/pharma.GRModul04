@@ -1,0 +1,170 @@
+<mvc:View
+	controllerName="de.arvato.GRModul04.controller.Master"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns="sap.m"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:semantic="sap.m.semantic">
+
+	<semantic:MasterPage id="page"
+		title="{masterView>/title}" navButtonPress="onNavBack"
+		showNavButton="false">
+
+		<semantic:subHeader>
+			<!--Bar id="headerBar"> <contentMiddle> <SearchField id="searchField" 
+				showRefreshButton="{= !${device>/support/touch} }" tooltip="{i18n>masterSearchTooltip}" 
+				width="100%" search="onSearch"> </SearchField> </contentMiddle> <contentRight> 
+				<Button id="sortButton" press=".onOpenViewSettings" icon="sap-icon://sort" 
+				type="Transparent" /> </contentRight> </Bar -->
+		</semantic:subHeader>
+
+		<semantic:content>
+
+			<PullToRefresh id="pullToRefresh" 
+				visible="{device>/support/touch}" refresh="onRefresh" />
+
+			<fb:FilterBar id="idCmrFilterBar" reset="onReset"
+				showFilterConfiguration="true" defaultIndent="XL2 L2 M2 S2"
+				search="onDetailSearch" useToolbar="false" showGoOnFB="false"
+				searchEnabled="true" showGoButton="true">
+
+				<fb:filterItems>
+				
+					<fb:FilterItem name="GROBWE" label="{i18n>Master.RoughGRNumber}"
+						visibleInFilterBar="true">
+						<fb:control>
+							<Input id="idGrobWEInput">
+								<customData>
+									<core:CustomData key="" />
+								</customData>
+							</Input>
+						</fb:control>
+					</fb:FilterItem>
+				
+					<fb:FilterItem name="CMRREF" label="{i18n>Master.CMRReference}"
+						visibleInFilterBar="true">
+						<fb:control>
+							<Input id="idCmrRefInput">
+								<customData>
+									<core:CustomData key="" />
+								</customData>
+							</Input>
+						</fb:control>
+					</fb:FilterItem>
+
+					<!--fb:FilterItem name="PRIO" label="Priorität" entitySetName="SE3" 
+						visibleInFilterBar="false"> <fb:control> <Select id="slName1" forceSelection="true" 
+						change="onSelectChange"> <core:Item key="1" text="Normal" /> <core:Item key="2" 
+						text="Hoch" /> </Select> </fb:control> </fb:FilterItem -->
+
+					<fb:FilterItem name="STATE" label="{i18n>Master.State}"
+						entitySetName="SE6" visibleInFilterBar="true">
+						<fb:control>
+							<!--Select id="slName2" forceSelection="true" change="onSelectChange"> 
+								<core:Item key="0" text="" /> <core:Item key="1" text="COC fehlt" /> <core:Item 
+								key="2" text="Deviation" /> <core:Item key="3" text="sonstiges" /> </Select -->
+							<ComboBox selectedKey="{State}" id="idStateComboBox"
+								items="{path:'/DomainValueSet', 
+													  filters:[{path:'Name',operator:'EQ',value1:'ZPHA_GR_STATE'},
+													  			{path:'Value',operator:'LE',value1:'60'}]}">
+								<core:Item key="{Value}" text="{Text}" />
+							</ComboBox>
+						</fb:control>
+					</fb:FilterItem>
+
+					<fb:FilterItem name="DATE" label="{i18n>Master.DeliveryDate}"
+						visibleInFilterBar="true">
+						<fb:control>
+							<!--DatePicker id="idDateDatePicker">
+								<customData>
+									<core:CustomData key="Erdat" />
+								</customData>
+							</DatePicker-->
+							
+							<DateRangeSelection id="idDateDateRangeSelection">
+							<customData>
+									<core:CustomData key="Erdat" />
+								</customData>
+							</DateRangeSelection>	
+							
+						</fb:control>
+					</fb:FilterItem>
+					
+					<fb:FilterItem name="LOCATION" label="{i18n>Master.Location}"
+						visibleInFilterBar="true">
+						<fb:control>
+							<!--ComboBox selectedKey="{State}" items="{path:'/DomainValueSet', 
+								filters:[{path:'Name',operator:'EQ',value1:'ZSTANDORT'}]}"> <core:Item key="{Value}" 
+								text="{Value}" /> </ComboBox -->
+							<ComboBox items="{app>/Locations}" id="idLocationComboBox"
+							  selectionChange="onLocationComboBoxSelectionChange">
+								<core:Item key="{app>LocID}" text="{app>LocID}" />								
+							</ComboBox>
+						</fb:control>
+					</fb:FilterItem>
+					
+
+					<fb:FilterItem name="MANDANT" label="{i18n>Master.Client}"
+						visibleInFilterBar="true">
+						<fb:control>
+							<ComboBox change="onSelectChange" id="idMandantComboBox"
+								items="{app>/SapClients}">
+								<core:Item key="{app>Mandt}" text="{app>Mandt} {app>Mtext}" />								
+								<customData>
+									<core:CustomData key="Mandt" />
+								</customData>
+							</ComboBox>
+						</fb:control>
+					</fb:FilterItem>
+					
+					<fb:FilterItem name="TEMPERATURE"
+						label="{i18n>Master.TemperatureRange}" visibleInFilterBar="true">
+						<fb:control>
+							<ComboBox selectedKey="{State}" id="idTemperatureComboBox"
+								items="{path:'/DomainValueSet', 
+													  filters:[{path:'Name',operator:'EQ',value1:'ZPHA_GR_TEMP_RANGE'}]}">
+								<core:Item key="{Value}" text="{Text}" />
+							</ComboBox>
+						</fb:control>
+					</fb:FilterItem>
+
+				</fb:filterItems>
+			</fb:FilterBar>
+
+			<List id="list"
+				items="{
+					path: '/CheckSet',								
+					filters: [{path:'State',operator:'BT', value1:'40', value2:'52'}],					
+					sorter: [{ path: 'Erdat', ascending: true },
+							 { path: 'CmrRef', descending: false }],
+					groupHeaderFactory: '.createGroupHeader'
+				}"
+				busyIndicatorDelay="{masterView>/delay}"
+				noDataText="{masterView>/noDataText}"
+				mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+				growing="true" growingScrollToLoad="true"
+				updateFinished="onCheckListUpdateFinished"
+				selectionChange="onSelectionChange">
+
+				<items>
+					<ObjectListItem
+						type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}"
+						press="onSelectionChange" title="{Zgweno}" number="{Client}">
+						<firstStatus>
+							<ObjectStatus
+								text="{path: 'Erdat', type: 'sap.ui.model.type.Date'}"
+								state="Success" />
+						</firstStatus>
+
+						<attributes>
+							<!-- ObjectAttribute text="{path: 'State', formatter: '.formatter.formatState'}" 
+								/ -->
+							<ObjectAttribute text="{CmrRef}" />
+						</attributes>
+
+					</ObjectListItem>
+				</items>
+			</List>
+
+		</semantic:content>
+
+	</semantic:MasterPage>
+
+</mvc:View>

@@ -1,0 +1,199 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form"
+	xmlns:libs="de.arvato.GRModul01.libs">
+
+	<f:Form id="Info" editable="false">
+
+		<f:layout>
+			<!-- f:ColumnLayout / -->
+			<f:ResponsiveGridLayout labelSpanXL="4"
+				labelSpanL="12" labelSpanM="12" labelSpanS="12"
+				adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+				emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false" />
+		</f:layout>
+
+		<f:formContainers>
+
+			<f:FormContainer expandable="true">
+				<f:title>
+					<core:Title icon="sap-icon://checklist"
+						text="{i18n>Info.General}"></core:Title>
+				</f:title>
+
+				<f:formElements>
+
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.DeliveryDate}"></Label>
+							<DatePicker dateValue="{Erdat}"
+								enabled="{app>/InProcess}"></DatePicker>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.Location}"></Label>
+							<Text
+								text="{path: 'roughGR>/Standort', formatter: '.formatter.formatLocation'}"></Text>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.Customer}"></Label>
+							<Text
+								text="{path: 'Client', formatter: '.formatter.getClient'}"></Text>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+
+							<Text text="{i18n>Info.CombinationGR}" />
+							<RadioButtonGroup columns="2"
+								enabled="{app>/InProcess}">
+								<buttons>
+									<RadioButton id="idRadio21"
+										text="{i18n>General.Yes}" selected="{= ${CombiGr} === '1'}" />
+
+									<RadioButton id="idRadi22" text="{i18n>General.No}"
+										selected="{= ${CombiGr} === '0'}" />
+								</buttons>
+							</RadioButtonGroup>
+
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.TemperatureRange}"></Label>
+							<FlexBox justifyContent="SpaceBetween">
+								<items>
+									<Label text="{info>/Temperature0Text}" design="Bold"
+										visible="{= ${info>/Temperature0Text}.length > 0}"></Label>
+
+									<Label design="Bold" text="{info>/Temperature1Text}"
+										visible="{= ${info>/Temperature1Text}.length > 0}"></Label>
+
+									<Label design="Bold" text="{info>/Temperature2Text}"
+										visible="{= ${info>/Temperature2Text}.length > 0}"></Label>
+
+									<Label design="Bold" text="{info>/Temperature3Text}"
+										visible="{= ${info>/Temperature3Text}.length > 0}"></Label>
+
+									<Label design="Bold" text="{info>/Temperature4Text}"
+										visible="{= ${info>/Temperature4Text}.length > 0}"></Label>
+
+								</items>
+							</FlexBox>
+
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.TemperatureComment}"
+								visible="{= ${info>/TemperatureCom}.length > 0}"></Label>
+							<FlexBox justifyContent="SpaceBetween">
+								<items>
+
+									<Label design="Bold" text="{info>/TemperatureCom}"
+										visible="{= ${info>/TemperatureCom}.length > 0}"></Label>
+
+								</items>
+							</FlexBox>
+
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.OpeningHours}"></Label>
+							<TimePicker
+								value="{ path : 'TimeOfOpening', 
+											 type : 'sap.ui.model.odata.type.Time',
+											 formatOptions: {  
+    											pattern : 'HH:mm'
+  											}}"
+								minutesStep="5" secondsStep="60" enabled="{app>/InProcess}">
+							</TimePicker>
+
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+
+							<Label text="{i18n>Info.EndTime}"></Label>
+							<TimePicker
+								value="{ path : 'TimeOfClosing', 
+											 type : 'sap.ui.model.odata.type.Time',
+											 formatOptions: {  
+    											pattern : 'HH:mm'
+  											}}"
+								minutesStep="5" secondsStep="60" enabled="{app>/InProcess}">
+							</TimePicker>
+
+						</f:fields>
+					</f:FormElement>
+										
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.Spedition}"></Label>
+							<Text text="{Spedition}"></Text>
+						</f:fields>
+					</f:FormElement>
+					
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.VehicleReg}"></Label>
+							<Text text="{VehicleReg}"></Text>
+						</f:fields>
+					</f:FormElement>
+										
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.NameOfDriver}"></Label>
+							<Text text="{NameExtern}"></Text>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.NameOfEmployee}"></Label>
+							<Text text="{NameIntern}"></Text>
+						</f:fields>
+					</f:FormElement>
+					
+					<!--f:FormElement>
+						<f:fields>
+							<Label text="{i18n>Info.Comment}"></Label>
+							<Text text="{Commentar}"></Text>
+						</f:fields>
+					</f:FormElement-->
+
+					<f:FormElement
+						visible="{= ${StateReason}.length > 0}">
+						<f:fields>
+							<Label text="{i18n>Info.StateReason}"></Label>
+							<FlexBox justifyContent="SpaceBetween">
+								<items>
+									<Label design="Bold" text="{StateReason}"></Label>
+								</items>
+							</FlexBox>
+
+						</f:fields>
+					</f:FormElement>
+
+				</f:formElements>
+			</f:FormContainer>
+
+		</f:formContainers>
+
+	</f:Form>
+
+
+</core:FragmentDefinition>
+			

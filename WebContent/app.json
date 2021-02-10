@@ -1,0 +1,29 @@
+{
+	"POmustBeCompleted": false,
+	"ArticleDataPermitted": true,
+	"GoodsPostingPermitted": true,
+	"ContractManufacturerPermitted": true,
+	"CmrRef": "",
+	"ContractManufacturer":"---",
+	"Username": "",
+	"InProcess": false,
+	"Master": {
+		"Filter":{
+			"Date":""
+		},
+		"Check": {			
+		}
+	},
+	"Detail": {
+		"Object": {},
+		"ArticleData": {
+			"Items": []
+		},
+		"POData": {
+			"Nummer": "",
+			"List": [],
+			"SelectedInList":[],
+			"Items": []
+		}
+	}
+}

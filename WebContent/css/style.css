@@ -1,0 +1,48 @@
+/* Enter your custom styles here */
+.sapMInput.myCustomCSSClass .sapMInputBaseInner {
+	text-transform: uppercase;
+}
+
+._sapMOH {
+	padding: 0;
+}
+
+.sapMRb {
+	height: 2, 2rem;
+}
+
+.MyFlexItem {
+	width: 50%
+}
+
+.MyFlexItem1 {
+	width: 50%
+}
+
+.myTextClass {
+	font-weight: bold;
+}
+
+.myFormElement {
+	border: 1px solid #fdf6b1;
+}
+
+/* 00 Offen*/
+tr[data-POItemRowData="00"] {
+	background: #ff0000;
+}
+
+/* 10 Teilweise geliefrert */
+tr[data-POItemRowData="10"] {
+	background: #ffff00;
+}
+
+/* 20 Voll geliefrert */
+tr[data-POItemRowData="20"] {
+	background: #00ff00;
+}
+
+/* 30 Überliefrert */
+tr[data-POItemRowData="30"] {
+	background: #FAAC58;
+}

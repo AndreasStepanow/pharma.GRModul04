@@ -1,0 +1,348 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form"
+	xmlns:libs="de.arvato.GRModul04.libs">
+
+	<f:Form id="Palett" editable="false">
+
+		<f:layout>
+			<!-- f:ColumnLayout / -->
+			<f:ResponsiveGridLayout labelSpanXL="4"
+				labelSpanL="12" labelSpanM="12" labelSpanS="12"
+				adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+				emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false" />
+		</f:layout>
+
+		<f:formContainers>
+
+			<f:FormContainer expandable="true">
+				<f:title>
+					<core:Title icon="sap-icon://checklist"
+						text="{i18n>ArticleData.General}"></core:Title>
+				</f:title>
+
+				<f:formElements>
+
+					<f:FormElement>
+						<f:fields>
+							<FlexBox class="sapMTBStandard">
+								<Text text="{i18n>ArticleData.Comment}"></Text>
+								<Text text="{CommentarPal}"></Text>
+							</FlexBox>
+						</f:fields>
+					</f:FormElement>
+
+				</f:formElements>
+
+				<f:FormElement>
+					<f:fields>
+
+						<FlexBox justifyContent="SpaceBetween"
+							class="sapMTBStandard">
+							<items>
+								<Text text="{i18n>ArticleData.GeodataCrct}" />
+								<RadioButtonGroup columns="2"
+									id="idRadioGeodataCrct" enabled="{app>/InProcess}">
+									<buttons>
+										<RadioButton id="idRadio31"
+											text="{i18n>General.Yes}"
+											selected="{= ${GeodataCrct} === '1'}">
+											<customData>
+												<core:CustomData key="cd" value="1"></core:CustomData>
+											</customData>
+
+										</RadioButton>
+										<RadioButton id="idRadio32"
+											text="{i18n>General.No}"
+											selected="{= ${GeodataCrct} === '0'}">
+
+											<customData>
+												<core:CustomData key="cd" value="0"></core:CustomData>
+											</customData>
+										</RadioButton>
+									</buttons>
+								</RadioButtonGroup>
+							</items>
+						</FlexBox>
+
+					</f:fields>
+				</f:FormElement>
+
+				<f:FormElement>
+					<f:fields>
+
+						<FlexBox justifyContent="SpaceBetween"
+							class="sapMTBStandard">
+							<items>
+								<Text text="{i18n>ArticleData.Accordance}" />
+								<RadioButtonGroup columns="2"
+									id="idRadioAccordance" enabled="{app>/InProcess}">
+									<buttons>
+										<RadioButton id="idRadio35"
+											text="{i18n>General.Yes}"
+											selected="{= ${Accordance} === '1'}">
+											<customData>
+												<core:CustomData key="cd" value="1"></core:CustomData>
+											</customData>
+										</RadioButton>
+
+										<RadioButton id="idRadio36"
+											text="{i18n>General.No}" selected="{= ${Accordance} === '0'}">
+											<customData>
+												<core:CustomData key="cd" value="0"></core:CustomData>
+											</customData>
+
+										</RadioButton>
+									</buttons>
+								</RadioButtonGroup>
+							</items>
+						</FlexBox>
+
+					</f:fields>
+				</f:FormElement>
+
+			</f:FormContainer>
+
+		</f:formContainers>
+
+	</f:Form>
+
+	<Table id="lineItemsList" width="auto"
+		sticky="ColumnHeaders,HeaderToolbar"
+		items="{path: 'DocItemSet', filters: [{path: 'State', operator: 'NE', value1: '41'}]}"
+		updateFinished="onListUpdateFinished"
+		noDataText="{i18n>detailLineItemTableNoDataText}"
+		busyIndicatorDelay="{detailView>/lineItemTableDelay}"
+		class="sapUiResponsiveMargin">
+		<headerToolbar>
+			<Toolbar id="lineItemsToolbar">
+				<Title id="lineItemsHeader"
+					text="{detailView>/lineItemListTitle}" />
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+			<Column>
+				<Text text="{i18n>detailLineItemTableIDColumn}" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.BatchAndExpiryDate}" />
+			</Column>
+			<!--Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right"> 
+				<Text text="Verfallsdat." /> </Column -->
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.Classific}" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.Durability}" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.Serialized}" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.Verification}" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.SerialFlag}"
+					tooltip="Serialisierungsflag gesetzt?" />
+			</Column>
+			<!--Column minScreenWidth="Tablet" demandPopin="true"> <Text text="Mat.serial." 
+				tooltip="Material serialisiert?" /> </Column -->
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.Booking}"
+					tooltip="{i18n>ArticleData.BookingText}" />
+			</Column>
+			<Column minScreenWidth="Tablet" demandPopin="true">
+				<Text text="{i18n>ArticleData.State}" tooltip="" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<!--Link text="{Matnr}" tooltip="{Maktx}"></Link -->
+					<ObjectIdentifier title="{Matnr}" titleActive="{SpecialProcess}" text="{SpecialProcessList}"
+						tooltip="{Maktx}" />
+					<VBox>
+						<items>
+							<Link text="{Charg}" press="onBatchLinkPress" enabled="{app>/InProcess}"
+								tooltip="{i18n>Quantity} {path: 'QtyTotal', type: 'sap.ui.model.type.Float', 
+							 		formatOptions: {
+							 			maxFractionDigits: 0,
+							 			roundingMode: 'away_from_zero'}} {i18n>UoM} / {i18n>Palett} {HuTotal}">
+								<customData>
+									<core:CustomData key="Name" value="Charg"></core:CustomData>
+								</customData>
+							</Link>
+							<Text text="{path: 'Vfdat', type: 'sap.ui.model.type.Date'}"></Text>
+							<Text text="{path: 'QtyTotal', type: 'sap.ui.model.type.Float', 
+							 		formatOptions: {
+							 			maxFractionDigits: 0,
+							 			roundingMode: 'away_from_zero'}} / {HuTotal}"></Text>
+						</items>
+					</VBox>
+
+					<!--Text tooltip="{i18n>Quantity} {path: 'QtyTotal', type: 'sap.ui.model.type.Float', 
+						formatOptions: { maxFractionDigits: 0, roundingMode: 'away_from_zero'}} {i18n>UoM} 
+						/ {i18n>Palett} {HuTotal}" text="{Charg} / {path: 'Vfdat', type: 'sap.ui.model.type.Date'}"/ -->
+
+					<!--ObjectNumber unit="{ path: 'Vfdat', type: 'sap.ui.model.type.Date'}" 
+						/ -->
+
+					<ComboBox selectionChange="onComboBoxSelectionChange"
+						tooltip="{i18n>ArticleData.Classific}" enabled="{app>/InProcess}"
+						selectedKey="{Classification}">
+						<core:Item key="1" text="{i18n>General.Yes}" />
+						<core:Item key="0" text="{i18n>General.No}" />
+						<core:Item key="2"
+							text="{i18n>ArticleData.DefaultMissing}" />
+						<core:Item key="-" text="{i18n>General.NA}" />
+						<customData>
+							<core:CustomData key="Name"
+								value="Classification"></core:CustomData>
+						</customData>
+					</ComboBox>
+					<ComboBox selectionChange="onComboBoxSelectionChange"
+						tooltip="{i18n>ArticleData.Durability}" enabled="{app>/InProcess}"
+						selectedKey="{Durability}">
+						<core:Item key="1" text="{i18n>General.Ok}" />
+						<core:Item key="0" text="{i18n>ArticleData.Difference}" />
+						<customData>
+							<core:CustomData key="Name" value="Durability"></core:CustomData>
+						</customData>
+					</ComboBox>
+
+					<!--CheckBox selected="{=${Serial} === 'X'}"></CheckBox -->
+
+					<ComboBox selectionChange="onComboBoxSelectionChange"
+						tooltip="{i18n>ArticleData.Serialized}" enabled="{app>/InProcess}"
+						selectedKey="{Serial}">
+						<core:Item key="1" text="{i18n>General.Yes}" />
+						<core:Item key="0" text="{i18n>General.No}" />
+						<customData>
+							<core:CustomData key="Name" value="Serial"></core:CustomData>
+						</customData>
+					</ComboBox>
+
+					<ComboBox selectionChange="onComboBoxSelectionChange"
+						tooltip="{i18n>ArticleData.Verification}"
+						enabled="{app>/InProcess}" selectedKey="{Verify}">
+						<core:Item key="1" text="{i18n>General.Yes}" />
+						<core:Item key="0" text="{i18n>General.No}" />
+						<core:Item key="-" text="{i18n>General.NA}" />
+						<customData>
+							<core:CustomData key="Name" value="Verify"></core:CustomData>
+						</customData>
+					</ComboBox>
+
+					<ComboBox selectionChange="onComboBoxSelectionChange"
+						tooltip="{i18n>ArticleData.SerialFlag}" enabled="{app>/InProcess}"
+						selectedKey="{SerializationFlag}">
+						<core:Item key="1" text="{i18n>General.Yes}" />
+						<core:Item key="0" text="{i18n>General.No}" />
+						<core:Item key="-" text="{i18n>General.NA}" />
+						<customData>
+							<core:CustomData key="{i18n>ArticleData.Name}"
+								value="SerializationFlag"></core:CustomData>
+						</customData>
+					</ComboBox>
+					<!--ComboBox selectionChange="onComboBoxSelectionChange" selectedKey="{MaterialSerialized}"> 
+						<core:Item key="1" text="Ja" /> <core:Item key="0" text="Nein" /> <core:Item 
+						key="-" text="N/A" /> <customData> <core:CustomData key="Name" value="MaterialSerialized"></core:CustomData> 
+						</customData> </ComboBox -->
+					<ComboBox selectionChange="onComboBoxSelectionChange"
+						tooltip="{i18n>ArticleData.Booking}" enabled="{app>/InProcess}"
+						selectedKey="{BookingFree}">
+						<core:Item key="1" text="{i18n>General.Yes}" />
+						<core:Item key="0" text="{i18n>General.No}" />
+						<core:Item key="-" text="{i18n>General.NA}" />
+						<customData>
+							<core:CustomData key="Name" value="BookingFree"></core:CustomData>
+						</customData>
+					</ComboBox>
+
+					<ComboBox selectionChange="onComboBoxSelectionChange"
+						tooltip="{i18n>ArticleData.State}" enabled="{app>/InProcess}"
+						selectedKey="{State}">
+						<core:Item key="90" text="{i18n>ArticleData.COCMissing}" />
+						<core:Item key="91" text="{i18n>ArticleData.Deviation}" />
+						<core:Item key="99" text="{i18n>ArticleData.Others}" />
+						<core:Item key="" text="{i18n>ArticleData.Empty}" />
+						<customData>
+							<core:CustomData key="Name" value="State"></core:CustomData>
+						</customData>
+					</ComboBox>
+
+					<!--CheckBox selected="true" / -->
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+	<f:Form id="State" editable="false">
+
+		<f:layout>
+			<!-- f:ColumnLayout / -->
+			<f:ResponsiveGridLayout labelSpanXL="4"
+				labelSpanL="12" labelSpanM="12" labelSpanS="12"
+				adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+				emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false" />
+		</f:layout>
+
+		<f:formContainers>
+
+			<f:FormContainer expandable="true">
+				<f:title>
+					<core:Title icon="sap-icon://accept" text="Status (QA)"></core:Title>
+				</f:title>
+				<f:formElements>
+					<f:FormElement>
+						<f:fields>
+							<FlexBox justifyContent="SpaceBetween">
+								<items>
+									<Text text="{i18n>ArticleData.State}" />
+									<ComboBox
+										selectedKey="{= ${State} > '40' ? ${State} : ''}"
+										enabled="{app>/InProcess}"
+										selectionChange="onComboBoxSelectionChange1"
+										items="{path:'/DomainValueSet', 
+													  filters:[{path:'Name',operator:'EQ',value1:'ZPHA_GR_STATE'},
+													  		   {path:'Value', operator: 'BT', value1: '48', value2:'52'}]}">
+										<core:Item key="{Value}" text="{Text}" />
+										<customData>
+											<core:CustomData key="Name" value="State"></core:CustomData>
+										</customData>
+									</ComboBox>
+								</items>
+							</FlexBox>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<FlexBox justifyContent="SpaceBetween" renderType="Bare">
+								<items>
+									<Text text="{i18n>ArticleData.Comment}">
+										<layoutData>
+											<FlexItemData growFactor="1" />
+										</layoutData>
+									</Text>
+									<Input value="{StateCom}" id="idStateCommentInput"
+										enabled="{app>/InProcess}">
+										<layoutData>
+											<FlexItemData growFactor="2" />
+										</layoutData>
+									</Input>
+								</items>
+							</FlexBox>
+						</f:fields>
+					</f:FormElement>
+
+				</f:formElements>
+			</f:FormContainer>
+
+		</f:formContainers>
+
+	</f:Form>
+
+</core:FragmentDefinition>

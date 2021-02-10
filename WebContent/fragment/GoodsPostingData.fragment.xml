@@ -1,0 +1,178 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:table="sap.ui.table" xmlns:f="sap.ui.layout.form"
+	xmlns:libs="de.arvato.GRModul04.libs">
+
+	<f:Form id="idGoodsPosting" editable="false">
+
+		<f:layout>
+			<!-- f:ColumnLayout / -->
+			<f:ResponsiveGridLayout labelSpanXL="4"
+				labelSpanL="12" labelSpanM="12" labelSpanS="12"
+				adjustLabelSpan="true" emptySpanXL="0" emptySpanL="0" emptySpanM="0"
+				emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+				singleContainerFullSize="false" />
+		</f:layout>
+
+		<f:formContainers>
+
+			<f:FormContainer expandable="true">
+				<f:title>
+					<core:Title icon="sap-icon://checklist"
+						text="{i18n>GoodsPostingData.POTab}"></core:Title>
+				</f:title>
+
+				<f:formElements>
+
+					<f:FormElement>
+						<f:label>
+							<Label text="{i18n>GoodsPostingData.PONumberLabel}"></Label>
+						</f:label>
+						<f:fields>
+							<FlexBox class="sapMTBStandard">
+								<items>
+									<!--Label text="{i18n>GoodsPostingData.PONumber}"></Label -->
+									<Input value="{app>/Detail/POData/Nummer}"
+										placeholder="{i18n>GoodsPostingData.PONumberPlaceholder}"
+										id="idPONumberInput" submit="onPONumberSubmit"></Input>
+									<!--Button icon="sap-icon://sys-enter" press="onPONumberPress"></Button -->
+								</items>
+							</FlexBox>
+						</f:fields>
+					</f:FormElement>
+
+					<!--f:FormElement> <f:fields> <List mode="Delete" id="idPOList" selectionChange="onPOListSelectionChange" 
+						delete="onPOListDeletion" items="{app>/Detail/POData/List}"> <StandardListItem 
+						info="{app>PONumber}" description="{app>}" /> </List> </f:fields> </f:FormElement -->
+					<f:FormElement>
+						<f:label>
+							<Label text="{i18n>GoodsPostingData.POListLabel}"></Label>
+						</f:label>
+						<f:fields>
+							<MultiComboBox id="idTemperatureComboBox"
+								items="{app>/Detail/POData/List}"
+								selectedKeys="{app>/Detail/POData/SelectedInList}"
+								selectionChange="onPOListSelectionChange">
+								<!--core:ListItem key="{app>PONumber}" text="{app>PONumber}+" additionalText="Zusatz" 
+									/ -->
+
+								<core:Item key="{app>PONumber}" text="{app>PONumber}"
+									id="idPOListComboBoxItem">
+								</core:Item>
+							</MultiComboBox>
+						</f:fields>
+					</f:FormElement>
+
+					<f:FormElement>
+						<f:fields>
+							<FlexBox class="sapMTBStandard"
+								justifyContent="SpaceBetween">
+								<items>
+									<Button
+										text="{i18n>GoodsPostingData.UpdatePOItemsButtonText}"
+										press="onUpdatePOItemsPress"></Button>
+									<FlexBox class="sapMTBStandard"
+										justifyContent="SpaceBetween">
+										<items>
+											<Button 
+												enabled="{app>/POmustBeCompleted}"
+												text="{i18n>GoodsPostingData.ProblemPOItemsButtonText}"
+												press="onProblemCheckStatePress">
+												<customData>
+													<core:CustomData key="Name"
+														value="StateReason" writeToDom="true"></core:CustomData>
+												</customData>
+											</Button>
+											<Button 
+												enabled="{app>/POmustBeCompleted}"
+												text="{i18n>GoodsPostingData.SavePOItemsButtonText}"
+												press="onSaveCheckStatePress"></Button>
+										</items>
+									</FlexBox>
+								</items>
+							</FlexBox>
+						</f:fields>
+					</f:FormElement>
+
+				</f:formElements>
+
+			</f:FormContainer>
+
+		</f:formContainers>
+
+	</f:Form>
+
+	<Table id="idPOItemsList" width="auto" 
+		sticky="ColumnHeaders,HeaderToolbar"
+		items="{app>/Detail/POData/Items}"
+		updateFinished="onPOListUpdateFinished"
+		noDataText="{i18n>GoodsPostingData.POItemTableNoDataText}"
+		busyIndicatorDelay="{detailView>/lineItemTableDelay}"
+		class="sapUiResponsiveMargin">
+		<headerToolbar>
+			<Toolbar id="idPOItemsToolbar">
+				<Title id="idPOItemsHeader"
+					text="{detailView>/POItemListTitle}" />
+			</Toolbar>
+		</headerToolbar>
+		<columns>
+			<Column></Column>
+			<Column>
+				<Text text="{i18n>GoodsPostingData.POItemTablePONumberColumn}" />
+			</Column>
+			<Column>
+				<Text
+					text="{i18n>GoodsPostingData.POItemTableItemNumberColumn}" />
+			</Column>
+			<Column>
+				<Text text="{i18n>GoodsPostingData.POItemTableMaterialColumn}" />
+			</Column>
+			<Column>
+				<Text
+					text="{i18n>GoodsPostingData.POItemTableMaterialTextColumn}" />
+			</Column>
+			<Column>
+				<Text text="{i18n>GoodsPostingData.POItemTableBatchColumn}" />
+			</Column>
+			<Column>
+				<Text
+					text="{i18n>GoodsPostingData.POItemTableExpiryDateColumn}" />
+			</Column>
+			<Column>
+				<Text text="{i18n>GoodsPostingData.POItemTableQuantitylColumn}" />
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<customData>
+					<core:CustomData key="POItemRowData"
+						value="{app>State}" writeToDom="true"></core:CustomData>
+				</customData>
+				<cells>
+					<core:Icon src="{path: 'app>State', formatter: '.formatter.getStateIcon'}"/>
+					<Link text="{app>PONumber}"
+						press="onPONumberLinkPress">
+						<customData>
+							<core:CustomData key="State" value="{app>State}"
+								writeToDom="true"></core:CustomData>
+							<core:CustomData key="Werks" value="{app>Werks}"
+								writeToDom="true"></core:CustomData>
+						</customData>
+					</Link>
+					<Text text="{app>ItemNumber}" />
+					<ObjectIdentifier text="{app>Matnr}" />
+					<Text text="{app>Maktx}" />
+					<Text text="{app>Charg}" />
+					<Text
+						text="{path: 'app>Vfdat', type : 'sap.ui.model.type.Date' }" />
+					<Text
+						text="{path: 'app>Menge', type: 'sap.ui.model.type.Float', 
+							 		formatOptions: {
+							 			maxFractionDigits: 2,
+							 			roundingMode: 'away_from_zero'}}"></Text>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+
+</core:FragmentDefinition>
