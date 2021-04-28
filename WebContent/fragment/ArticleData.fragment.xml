@@ -130,7 +130,7 @@
 			</Column>
 			<!--Column minScreenWidth="Tablet" demandPopin="true" hAlign="Right"> 
 				<Text text="Verfallsdat." /> </Column -->
-			<Column minScreenWidth="Tablet" demandPopin="true">
+			<Column width='80px' demandPopin="true">
 				<Text text="{i18n>ArticleData.Classific}" />
 			</Column>
 			<Column minScreenWidth="Tablet" demandPopin="true">
@@ -142,7 +142,7 @@
 			<Column minScreenWidth="Tablet" demandPopin="true">
 				<Text text="{i18n>ArticleData.Verification}" />
 			</Column>
-			<Column minScreenWidth="Tablet" demandPopin="true">
+			<Column width='80px' demandPopin="true">
 				<Text text="{i18n>ArticleData.SerialFlag}"
 					tooltip="Serialisierungsflag gesetzt?" />
 			</Column>
@@ -165,7 +165,7 @@
 					<VBox>
 						<items>
 							<Link text="{Charg}" press="onBatchLinkPress" enabled="{app>/InProcess}"
-								tooltip="{i18n>Quantity} {path: 'QtyTotal', type: 'sap.ui.model.type.Float', 
+								tooltip="{Charg} / {i18n>Quantity} {path: 'QtyTotal', type: 'sap.ui.model.type.Float', 
 							 		formatOptions: {
 							 			maxFractionDigits: 0,
 							 			roundingMode: 'away_from_zero'}} {i18n>UoM} / {i18n>Palett} {HuTotal}">
@@ -265,6 +265,12 @@
 						selectedKey="{State}">
 						<core:Item key="90" text="{i18n>ArticleData.COCMissing}" />
 						<core:Item key="91" text="{i18n>ArticleData.Deviation}" />
+						<core:Item key="92" text="{i18n>ArticleData.OldStock}" />
+						<core:Item key="93" text="{i18n>ArticleData.StockTransfer}" />
+						<core:Item key="94" text="{i18n>ArticleData.TemperatureDeviation}" />
+						<core:Item key="95" text="{i18n>ArticleData.Damage}" />
+						<core:Item key="96" text="{i18n>ArticleData.BolliniUploadMissing}" />
+						<core:Item key="97" text="{i18n>ArticleData.FullConcept}" />
 						<core:Item key="99" text="{i18n>ArticleData.Others}" />
 						<core:Item key="" text="{i18n>ArticleData.Empty}" />
 						<customData>
