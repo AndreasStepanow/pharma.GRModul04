@@ -63,7 +63,8 @@
 							<ComboBox selectedKey="{State}" id="idStateComboBox"
 								items="{path:'/DomainValueSet', 
 													  filters:[{path:'Name',operator:'EQ',value1:'ZPHA_GR_STATE'},
-													  			{path:'Value',operator:'LE',value1:'60'}]}">
+													  			{path:'Value',operator:'LE',value1:'60'},
+													  			{path:'Value',operator:'GT',value1:'90'}]}">
 								<core:Item key="{Value}" text="{Text}" />
 							</ComboBox>
 						</fb:control>
